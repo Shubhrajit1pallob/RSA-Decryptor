@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Decryptor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+
+    <div class="heading_text">
+        <h1>Welcome to RSA Decryptor</h1>
+    </div>
+
+
+    <div class="decryption_form">
+        <p>Please Enter the encrypted text details:</p>
+        <form action="/decrypt" method="post" enctype="multipart/form-data">
+            <input type="number" name="encrypted_text" placeholder="Encrypted Text" class="encrypted_text_input" required>
+            <input type="number" name="n" placeholder="Value of n" class="encrypted_text_input" required>
+            <input type="number" name="public_key" placeholder="Public Key" class="encrypted_text_input" required>
+            <button type="submit" class="decrypt_button button">Decrypt</button>
+        </form>
+    </div>
+
+    {% if decrypted_text %}
+    <div class="decrypted_text">
+        <p>Decrypted Text: {{ decrypted_text }}</p>
+        <button class="button" onclick="window.location.reload();">Try Again</button>
+    </div>
+    {% endif %}
+    
+    <div class="error_messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>{% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.error_messages ul').fadeOut();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
